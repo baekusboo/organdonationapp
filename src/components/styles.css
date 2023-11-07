@@ -10,7 +10,6 @@ body{
     width: 550px;
     margin: 20px auto;
     padding: 20px;
-    /* height: 600px; */
 }
 
 .form-body{
@@ -34,3 +33,13 @@ body{
     text-align: center;
 }
 
+.title{
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}
+
+.alert {
+    font-weight: bold;
+    color: red;
+}
