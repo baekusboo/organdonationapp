@@ -12,6 +12,10 @@ function DonationForm() {
     const [confirmPassword,setConfirmPassword] = useState(null);
     const [alertMessage, setAlertMessage] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [bloodType, setBloodType] = useState(null);
+    const [medicalHistory, setMedicalHistory] = useState(null);
+    const [donationReason, setDonationReason] = useState(null);
+
 
     const handleInputChange = (e) => {
         const {id , value} = e.target;
@@ -30,7 +34,15 @@ function DonationForm() {
         if(id === "confirmPassword"){
             setConfirmPassword(value);
         }
-
+        if(id === "bloodType"){
+            setBloodType(value);
+        }
+        if(id === "medicalHistory"){
+            setMedicalHistory(value);
+        }
+        if(id === "donationReason"){
+            setDonationReason(value);
+        }
     }
 
       const isEmailValid = (email) => {
@@ -48,7 +60,7 @@ function DonationForm() {
         let alert = ''; // Initialize alert message
 
         // Check if all fields are filled
-        if (!firstName || !lastName || !email || !password || !confirmPassword) {
+        if (!firstName || !lastName || !email || !password || !confirmPassword || !bloodType || !medicalHistory || !donationReason) {
             alert = 'All fields must be filled.';
         } else if (!isEmailValid(email)) {
             alert = 'Invalid email address';
@@ -57,11 +69,13 @@ function DonationForm() {
         }
         else {
                 let obj = {
-                firstName : firstName,
-                lastName:lastName,
-                email:email,
-                password:password,
-                confirmPassword:confirmPassword,
+                    firstName : firstName,
+                    lastName:lastName,
+                    email:email,
+                    password:password,
+                    bloodType:bloodType,
+                    medicalHistory:medicalHistory,
+                    donationReason:donationReason,
             }       
         const newPostKey = push(child(ref(database), 'posts')).key;
         const updates = {};
@@ -121,6 +135,29 @@ function DonationForm() {
                     <label className="form__label" htmlFor="confirmPassword">Confirm Password </label>
                     <input className="form__input" type="password" id="confirmPassword" value={confirmPassword} onChange = {(e) => handleInputChange(e)} placeholder="Confirm Password" />
                 </div>
+                <div className="bloodType">
+                    <label className="form__label" htmlFor="bloodType">Blood Type </label>
+                    <select className="form__input" id="bloodType" value={bloodType} onChange = {(e) => handleInputChange(e)}>
+                        <option value="">Select...</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                    </select>
+                </div>
+                <div className="medicalHistory">
+                    <label className="form__label" htmlFor="medicalHistory">Medical History </label>
+                    <textarea className="form__input" id="medicalHistory" value={medicalHistory} onChange = {(e) => handleInputChange(e)} placeholder="Medical History"/>
+                </div>
+                <div className="donationReason">
+                    <label className="form__label" htmlFor="donationReason">Reason for Donation </label>
+                    <textarea className="form__input" id="donationReason" value={donationReason} onChange = {(e) => handleInputChange(e)} placeholder="Medical Reason for Donation"/>
+                </div>
+
             </div>
             <div className="footer">
                 <button onClick={handleSubmit} type="submit" className="btn-dark">Register</button>
